@@ -23,9 +23,13 @@ passport.use(new googleStrategy({
   })
 )
 
-/*passport.use(new facebookStrategy({
-  //Some options goes here!
-  }, ()=>{
-  //callback function
-  })
-)*/
+passport.use(new facebookStrategy({
+    clientID: keys.facebook.id,
+    clientSecret: keys.facebook.secret,
+    callbackURL: "/auth/facebook/redirect"
+  },
+  function(accessToken, refreshToken, profile, done) {
+      console.log(profile.displayName);
+      done(null, profile.displayName);
+  }
+));

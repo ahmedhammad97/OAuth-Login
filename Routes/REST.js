@@ -17,12 +17,15 @@ router.get('/auth/google', passport.authenticate('google', {
 }));
 
 // auth with facebook
-router.get('/auth/facebook', (req, res) => {
-    // handle with passport
-    res.send('logging in with Facebook');
-});
+router.get('/auth/facebook', passport.authenticate('facebook', {
+  scope : ['read_stream']
+}));
 
 router.get('/auth/google/redirect', passport.authenticate('google'), (req, res)=>{
+  res.redirect(`/profile/${req.user}`);
+})
+
+router.get('/auth/facebook/redirect', passport.authenticate('facebook'), (req, res)=>{
   res.redirect(`/profile/${req.user}`);
 })
 
