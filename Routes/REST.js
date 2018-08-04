@@ -7,7 +7,7 @@ router.get('/', (req, res)=>{
 });
 
 //Profile page
-router.get('/profile', (req, res)=>{
+router.get('/profile/:name', (req, res)=>{
   res.render('profile', {'name' : req.params.name});
 });
 
@@ -22,8 +22,8 @@ router.get('/auth/facebook', (req, res) => {
     res.send('logging in with Facebook');
 });
 
-router.get('/auth/google/redirect', (req, res)=>{
-  res.send('you\'re now authenticated ;)');
+router.get('/auth/google/redirect', passport.authenticate('google'), (req, res)=>{
+  res.redirect(`/profile/${req.user}`);
 })
 
 module.exports = router;
